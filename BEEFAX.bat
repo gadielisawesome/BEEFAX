@@ -4,47 +4,44 @@ echo WAIT!
 timeout /t 1 /nobreak >nul
 
 REM ----- INIT -----
-color 0F
-mode con: cols=65 lines=14
-set url1=https://raw.githubusercontent.com/gadielisawesome/BEEFAX/main/pages/msg1.txt
-set url2=https://raw.githubusercontent.com/gadielisawesome/BEEFAX/main/pages/msg2.txt
-set url3=https://raw.githubusercontent.com/gadielisawesome/BEEFAX/main/pages/msg3.txt
-set url4=https://raw.githubusercontent.com/gadielisawesome/BEEFAX/main/pages/msg4.txt
-set url5=https://raw.githubusercontent.com/gadielisawesome/BEEFAX/main/pages/msg5.txt
+color F0
+mode con: cols=65 lines=15
+REM Replace this with your fork if you want too!
+set url=gadielisawesome/BEEFAX
 REM ----- DONE -----
-
-
-
-
 
 :get
 title BEEFAX - CACHING CONTENT
 md C:\BEEFAX >nul
-curl -L %url1% > C:\BEEFAX\msg1.log
-curl -L %url2% > C:\BEEFAX\msg2.log
-curl -L %url3% > C:\BEEFAX\msg3.log
-curl -L %url4% > C:\BEEFAX\msg4.log
-curl -L %url5% > C:\BEEFAX\msg5.log
+curl -L https://raw.githubusercontent.com/%url%/main/pages/msg1.txt > C:\BEEFAX\msg1.log
+curl -L https://raw.githubusercontent.com/%url%/main/pages/msg2.txt > C:\BEEFAX\msg2.log
+curl -L https://raw.githubusercontent.com/%url%/main/pages/msg3.txt > C:\BEEFAX\msg3.log
+curl -L https://raw.githubusercontent.com/%url%/main/pages/msg4.txt > C:\BEEFAX\msg4.log
+curl -L https://raw.githubusercontent.com/%url%/main/pages/msg5.txt > C:\BEEFAX\msg5.log
+curl -L https://raw.githubusercontent.com/%url%/main/pages/off.air > C:\BEEFAX\off.air
+type C:\BEEFAX\off.air | find /i "false"
+if "%ERRORLEVEL%"=="1" goto offair
 
 title BEEFAX - CONTENT IN MEMORY
-cks
-mode con: cols=65 lines=14
+cls
+mode con: cols=65 lines=15
 type C:\BEEFAX\msg1.log
 timeout /t 10 /nobreak >nul
-mode con: cols=65 lines=14
+mode con: cols=65 lines=15
 type C:\BEEFAX\msg2.log
 timeout /t 10 /nobreak >nul
-mode con: cols=65 lines=14
+mode con: cols=65 lines=15
 type C:\BEEFAX\msg3.log
 timeout /t 10 /nobreak >nul
-mode con: cols=65 lines=14
+mode con: cols=65 lines=15
 type C:\BEEFAX\msg4.log
 timeout /t 10 /nobreak >nul
-mode con: cols=65 lines=14
+mode con: cols=65 lines=15
 type C:\BEEFAX\msg5.log
 timeout /t 10 /nobreak >nul
-mode con: cols=65 lines=14
+mode con: cols=65 lines=15
 echo ---------------------------------------------------------------
+echo.
 echo.
 echo.
 echo.
@@ -57,4 +54,24 @@ echo.
 echo.
 echo PLEASE WAIT
 echo ---------------------------------------------------------------
+goto get
+
+:offair
+title BEEFAX - OFF AIR
+cls
+echo ---------------------------------------------------------------
+echo.
+echo BEEFAX IS CURRENTLY OFF THE AIR
+echo IT WILL BE BACK AS SOON AS POSSIBLE 
+echo.
+echo SORRY ABOUT THE DISRUPTION.
+echo THIS SCREEN WILL REFRESH EVERY 30 SECONDS TO RETRY.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo ---------------------------------------------------------------
+timeout /t 30 /nobreak >nul
 goto get
